@@ -1,0 +1,44 @@
+# type _Schema_
+#   @fulltext(
+#     name: "serviceSearch"
+#     language: en
+#     algorithm: rank
+#     include: [{ entity: "Service", fields: [{ name: "owner" }, { name: "title" }] }]
+#   )
+
+type Service @entity {
+  id: ID!
+  creator: User!
+  owner: User!
+  categorie: String!
+  area: String!
+  subArea: String
+  title: String!
+  description: String
+  price: BigInt!
+  duration: BigInt!
+  onSale: Boolean!
+  onDispute: Boolean!
+}
+
+type User @entity {
+  id: ID!
+  # account: User!
+  role: String!
+  categorie: String!
+  reputation: Int!
+  services: [Service!] @derivedFrom(field: "owner")
+  banned: Boolean!
+}
+
+
+# type Dispute @entity {
+#   id: ID!
+#   applicant: User!
+#   accused: User!
+#   initialTime: BigInt!
+#   finalTime: BigInt
+#   jury: [User!]
+#   votes: [Boolean!]
+#   state: String
+#   winner: User
